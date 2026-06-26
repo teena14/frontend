@@ -74,15 +74,15 @@ function SolutionsInner() {
           {SOLUTIONS.map((solution) => (
             <article
               key={solution.id}
-              className="group relative rounded-2xl p-9 bg-white border border-nocturnal/40 transition-all duration-200 hover:-translate-y-1.5 hover:shadow-lg"
+              className="group relative rounded-2xl p-9 bg-white border border-nocturnal/30 transition-all duration-200 hover:-translate-y-1.5 hover:shadow-lg"
               style={{ willChange: 'transform' }}
             >
               {/* Metric in top-right */}
               <div className="absolute top-8 right-8 text-right">
-                <div className="font-mono font-bold text-nocturnal/15 text-2xl leading-none">
+                <div className="font-mono font-bold text-nocturnal/50 text-2xl leading-none">
                   {solution.stat}
                 </div>
-                <div className="font-mono text-[9px] font-medium tracking-widest uppercase text-nocturnal/20">
+                <div className="font-mono text-[9px] font-medium tracking-widest uppercase text-nocturnal/40">
                   {solution.statLabel}
                 </div>
               </div>

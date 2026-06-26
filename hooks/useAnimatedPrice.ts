@@ -8,7 +8,7 @@ import type { Plan } from '@/types';
  * Directly mutates the DOM textContent for the price and billing string,
  * avoiding React re-renders when the global pricingStore updates.
  */
-export function usePricingStoreText(planId: Plan, duration: number = 400) {
+export function usePricingStoreText(planId: Plan, duration: number = 1000) {
   const priceRef = useRef<HTMLSpanElement>(null);
   const billingRef = useRef<HTMLParagraphElement>(null);
   const rafRef = useRef<number | null>(null);

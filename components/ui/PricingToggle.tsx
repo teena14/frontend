@@ -50,8 +50,8 @@ export default function PricingToggle() {
 
       if (savingsWrapRef.current) {
         savingsWrapRef.current.className = cn(
-          'overflow-hidden transition-all duration-200',
-          !isMonthly ? 'max-w-[120px] ml-3 opacity-100' : 'max-w-0 ml-0 opacity-0'
+          'absolute right-[100%] mr-4 flex items-center transition-all duration-1000',
+          !isMonthly ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2 pointer-events-none'
         );
       }
 
@@ -67,7 +67,7 @@ export default function PricingToggle() {
 
   return (
     <div
-      className="flex items-center gap-4"
+      className="relative flex items-center gap-4"
       role="radiogroup"
       aria-label="Billing period"
     >
@@ -81,7 +81,7 @@ export default function PricingToggle() {
           style={{
             width: 'calc(50% - 4px)',
             left: '4px',
-            transition: 'left 300ms cubic-bezier(0.16, 1, 0.3, 1)',
+            transition: 'left 1000ms cubic-bezier(0.16, 1, 0.3, 1)',
           }}
           aria-hidden="true"
         />
@@ -109,7 +109,7 @@ export default function PricingToggle() {
         </button>
       </div>
 
-      <div ref={savingsWrapRef} className="overflow-hidden transition-all duration-200 max-w-0 ml-0 opacity-0">
+      <div ref={savingsWrapRef} className="absolute right-[100%] mr-4 flex items-center transition-all duration-1000 opacity-0 translate-x-2 pointer-events-none">
         <span
           ref={savingsTextRef}
           className="font-mono text-[10px] font-semibold px-2 py-1 rounded-full whitespace-nowrap block bg-forsythia text-oceanic-noir"
