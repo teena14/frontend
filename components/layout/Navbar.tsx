@@ -6,11 +6,11 @@
 
 import { useState, memo } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useScrolled } from '@/hooks/useScrolled';
 import { cn } from '@/lib/utils';
 import { NAV_LINKS, SITE_NAME } from '@/lib/constants';
 import Button from '@/components/ui/Button';
+import Icon from '@/components/ui/Icon';
 import MobileMenu from './MobileMenu';
 
 function NavbarInner() {
@@ -41,15 +41,16 @@ function NavbarInner() {
             className="flex items-center gap-2.5 group flex-shrink-0"
             aria-label={`${SITE_NAME} home`}
           >
-            <Image
-              src="/icon.svg"
-              alt=""
-              aria-hidden="true"
-              width={32}
-              height={32}
-              className="w-8 h-8 rounded-lg"
-              unoptimized
-            />
+            <span
+              className="flex items-center justify-center w-8 h-8 rounded-lg transition-colors duration-200"
+              style={{ background: scrolled ? '#FFC801' : '#114C5A' }}
+            >
+              <Icon
+                name="cube-16-solid"
+                size={14}
+                className={scrolled ? 'text-oceanic-noir' : 'text-arctic-powder'}
+              />
+            </span>
             <span
               className="font-mono font-semibold text-[15px] tracking-tight leading-none transition-colors duration-200"
               style={{ color: scrolled ? '#F1F6F4' : '#114C5A' }}
