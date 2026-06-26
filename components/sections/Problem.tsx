@@ -82,7 +82,7 @@ function ProblemInner() {
               className="group relative p-10 transition-colors duration-200"
               style={{ background: '#172B36' }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = '#1F3846';
+                (e.currentTarget as HTMLElement).style.background = '#284454';
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.background = '#172B36';
