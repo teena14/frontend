@@ -1,0 +1,621 @@
+@import "tailwindcss";
+
+/* =============================================================================
+   DESIGN TOKENS — AI SaaS Landing Page
+   All design values defined as CSS custom properties.
+   These are the ONLY colors, spacings, and timings used in this project.
+   ============================================================================= */
+
+@theme {
+  /* ---------------------------------------------------------------------------
+     Color Palette — Official brand colors only. No additional accents.
+     --------------------------------------------------------------------------- */
+  --color-arctic-powder: #F1F6F4;
+  /* Primary background, cards, soft surfaces */
+  --color-mystic-mint: #D9E8E2;
+  /* Alternate sections, features, pricing bg */
+  --color-forsythia: #FFC801;
+  /* Primary CTA, badges, active states */
+  --color-deep-saffron: #FF9932;
+  /* Hover states, secondary highlights */
+  --color-nocturnal: #114C5A;
+  /* Dark sections, navbar post-scroll */
+  --color-oceanic-noir: #172B36;
+  /* Footer, dark surfaces */
+
+  /* Derived semantic tokens */
+  --color-text-primary: #172B36;
+  --color-text-secondary: #114C5A;
+  --color-text-muted: #5a7a85;
+  --color-text-on-dark: #F1F6F4;
+  --color-text-on-dark-muted: rgba(241, 246, 244, 0.65);
+  --color-border: rgba(17, 76, 90, 0.12);
+  --color-border-dark: rgba(241, 246, 244, 0.12);
+
+  /* ---------------------------------------------------------------------------
+     Typography — JetBrains Mono (headings) + Inter (body)
+     next/font/google injects --font-jetbrains and --font-inter into :root via
+     the className on <html>. We map them to Tailwind's --font-mono/--font-sans.
+     --------------------------------------------------------------------------- */
+  --font-mono: var(--font-jetbrains, 'JetBrains Mono', ui-monospace, monospace);
+  --font-sans: var(--font-inter, 'Inter', ui-sans-serif, system-ui, sans-serif);
+
+
+
+  /* ---------------------------------------------------------------------------
+     Radius
+     --------------------------------------------------------------------------- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* ---------------------------------------------------------------------------
+     Shadows — subtle, intentional, no heavy shadows
+     --------------------------------------------------------------------------- */
+  --shadow-xs: 0 1px 2px rgba(23, 43, 54, 0.06);
+  --shadow-sm: 0 2px 6px rgba(23, 43, 54, 0.08), 0 1px 2px rgba(23, 43, 54, 0.04);
+  --shadow-md: 0 4px 16px rgba(23, 43, 54, 0.10), 0 2px 4px rgba(23, 43, 54, 0.06);
+  --shadow-lg: 0 8px 32px rgba(23, 43, 54, 0.12), 0 4px 8px rgba(23, 43, 54, 0.08);
+  --shadow-focus: 0 0 0 3px rgba(255, 200, 1, 0.35);
+
+  /* ---------------------------------------------------------------------------
+     Animation timings — all hardware-accelerated properties only
+     --------------------------------------------------------------------------- */
+  --duration-micro: 150ms;
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 400ms;
+  --duration-entrance: 500ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* =============================================================================
+   REDUCED MOTION — disable all non-essential animations
+   ============================================================================= */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =============================================================================
+   BASE RESETS
+   ============================================================================= */
+
+@layer base {
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-arctic-powder);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+  }
+}
+
+/* =============================================================================
+   TYPOGRAPHY SCALE
+   ============================================================================= */
+
+.font-mono {
+  font-family: var(--font-mono) !important;
+}
+
+.font-sans {
+  font-family: var(--font-sans) !important;
+}
+
+/* Display — Hero headlines */
+.text-display {
+  font-family: var(--font-mono);
+  font-size: clamp(2.75rem, 5.5vw + 1rem, 5.5rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+/* H1 */
+.text-h1 {
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 3.25vw + 0.5rem, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+/* H2 — Section headings */
+.text-h2 {
+  font-family: var(--font-mono);
+  font-size: clamp(1.875rem, 2.75vw + 0.5rem, 3rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+}
+
+/* H3 — Card headings */
+.text-h3 {
+  font-family: var(--font-mono);
+  font-size: clamp(1.25rem, 1.5vw + 0.25rem, 1.5rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+/* Body large */
+.text-body-lg {
+  font-family: var(--font-sans);
+  font-size: clamp(1.0625rem, 0.5vw + 0.9375rem, 1.1875rem);
+  font-weight: 400;
+  line-height: 1.72;
+}
+
+/* Body */
+.text-body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+/* Label */
+.text-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* =============================================================================
+   CONTAINER
+   ============================================================================= */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1.5rem, 5vw, 3rem);
+  padding-right: clamp(1.5rem, 5vw, 3rem);
+}
+
+/* =============================================================================
+   SECTION SPACING
+   ============================================================================= */
+
+.section {
+  padding-top: clamp(5rem, 9vw, 8rem);
+  padding-bottom: clamp(5rem, 9vw, 8rem);
+}
+
+.section-sm {
+  padding-top: clamp(3rem, 5vw, 4.5rem);
+  padding-bottom: clamp(3rem, 5vw, 4.5rem);
+}
+
+/* =============================================================================
+   ENTRANCE ANIMATIONS — IntersectionObserver driven
+   Components start invisible and transition in when .in-view is added.
+   ============================================================================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--duration-slow) var(--ease-standard),
+    transform var(--duration-slow) var(--ease-standard);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger — each child gets a delay via --index CSS variable */
+.reveal-stagger>* {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity var(--duration-slow) var(--ease-standard),
+    transform var(--duration-slow) var(--ease-standard);
+}
+
+.reveal-stagger.in-view>*:nth-child(1) {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0ms;
+}
+
+.reveal-stagger.in-view>*:nth-child(2) {
+  opacity: 1;
+  transform: none;
+  transition-delay: 80ms;
+}
+
+.reveal-stagger.in-view>*:nth-child(3) {
+  opacity: 1;
+  transform: none;
+  transition-delay: 160ms;
+}
+
+.reveal-stagger.in-view>*:nth-child(4) {
+  opacity: 1;
+  transform: none;
+  transition-delay: 240ms;
+}
+
+.reveal-stagger.in-view>*:nth-child(5) {
+  opacity: 1;
+  transform: none;
+  transition-delay: 320ms;
+}
+
+.reveal-stagger.in-view>*:nth-child(6) {
+  opacity: 1;
+  transform: none;
+  transition-delay: 400ms;
+}
+
+.reveal-stagger.in-view>*:nth-child(7) {
+  opacity: 1;
+  transform: none;
+  transition-delay: 480ms;
+}
+
+.reveal-stagger.in-view>*:nth-child(8) {
+  opacity: 1;
+  transform: none;
+  transition-delay: 560ms;
+}
+
+/* Hero entrance — each element has its own stagger delay */
+.hero-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroReveal var(--duration-slow) var(--ease-standard) forwards;
+}
+
+@keyframes heroReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =============================================================================
+   FOCUS STATES — visible, intentional, keyboard-friendly
+   ============================================================================= */
+
+:focus-visible {
+  outline: 2px solid var(--color-forsythia);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* =============================================================================
+   SCROLLBAR — subtle, brand-aligned
+   ============================================================================= */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-arctic-powder);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-mystic-mint);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-nocturnal);
+  opacity: 0.4;
+}
+
+/* =============================================================================
+   SELECTION
+   ============================================================================= */
+
+::selection {
+  background: var(--color-forsythia);
+  color: var(--color-oceanic-noir);
+}
+
+/* =============================================================================
+   MARQUEE — Trusted By infinite scroll
+   ============================================================================= */
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* =============================================================================
+   ACCORDION — grid-template-rows trick (no JS height measurement)
+   ============================================================================= */
+
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-normal) var(--ease-standard);
+}
+
+.accordion-content[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.accordion-inner {
+  overflow: hidden;
+}
+
+/* =============================================================================
+   GRADIENT MESH — subtle background texture for hero
+   ============================================================================= */
+
+@keyframes meshFloat {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(12px, -8px) scale(1.02);
+  }
+
+  66% {
+    transform: translate(-8px, 12px) scale(0.98);
+  }
+}
+
+/* =============================================================================
+   COUNTER PULSE — brief scale pulse when counter finishes
+   ============================================================================= */
+
+@keyframes counterPulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.04);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.counter-done {
+  animation: counterPulse 300ms var(--ease-standard);
+}
+
+/* =============================================================================
+   GRID BACKGROUND — subtle dot/line grid for hero section
+   ============================================================================= */
+
+.grid-background {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(17, 76, 90, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17, 76, 90, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+}
+
+/* =============================================================================
+   FLOATING BADGE — pulsing indicator in hero
+   ============================================================================= */
+
+@keyframes floatUp {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.float-anim {
+  animation: floatUp 4s ease-in-out infinite;
+}
+
+/* =============================================================================
+   UTILITY CLASSES
+   ============================================================================= */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Separator line */
+.divider {
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* Smooth parallax wrapper */
+.parallax-el {
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+/* Text gradient — for headline emphasis */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-nocturnal), var(--color-text-muted));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+  .text-gradient-gold {
+  background: linear-gradient(135deg, var(--color-forsythia), var(--color-deep-saffron));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =============================================================================
+   PREMIUM ANIMATIONS & BACKGROUNDS (PHASE 1)
+   ============================================================================= */
+
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 120%; }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(17,76,90, 0.1); }
+  50% { box-shadow: 0 0 30px rgba(17,76,90, 0.3); }
+}
+
+@keyframes borderGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes letterSpaceIn {
+  0% { opacity: 0; letter-spacing: -0.05em; transform: translateY(10px); }
+  100% { opacity: 1; letter-spacing: normal; transform: translateY(0); }
+}
+
+.animate-letter-space {
+  animation: letterSpaceIn 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Button micro-interactions */
+.btn-premium {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-premium:active {
+  transform: scale(0.98);
+}
+.btn-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-20deg);
+  transition: none;
+}
+.btn-premium:hover::before {
+  animation: shine 200ms ease-out;
+}
+
+/* Backgrounds & Dividers */
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(17,76,90, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(17,76,90, 0.03) 1px, transparent 1px);
+}
+
+.divider-gradient {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(17,76,90,0.1) 50%, transparent 100%);
+}
+
+.radial-blur {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1;
+  pointer-events: none;
+}
